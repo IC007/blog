@@ -1,6 +1,6 @@
 # 进行users子应用视图路由
 from django.urls import path
-from users.views import RegisterView,ImageCodeView
+from users.views import RegisterView, ImageCodeView
 
 urlpatterns = [
     # path 第一个参数：路由

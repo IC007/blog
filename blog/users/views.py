@@ -38,3 +38,19 @@ class ImageCodeView(View):
         redis_conn.setex('img:%s' % uuid, 300, text)
         # 返回图片二进制
         return HttpResponse(image, content_type='image/jpeg')
+
+
+# 发送短信验证码
+class SmsCodeView(View):
+
+    def get(self, request):
+        """
+        接收参数
+        验证参数
+            参数是否齐全
+            参数是否正确
+        生成短信验证码
+        保存短信验证码到redis
+        发送短信
+        返回响应
+        """
