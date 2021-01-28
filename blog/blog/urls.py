@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     # 通过include，把users下的urls.py文件导入，即包含下所有路由
@@ -24,6 +23,6 @@ urlpatterns = [
     # urlconf_module: 子应用的路由
     # app_name: 子应用的名字pa
     # namespace: 命名空间，区分不同子应用下路由，一般和子应用即可
-    path('', include(('users.urls', 'users'), namespace='users'))
+    path('', include(('users.urls', 'users'), namespace='users')),
 
 ]
