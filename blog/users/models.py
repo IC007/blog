@@ -12,6 +12,8 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='avatar/%Y%m%d/', blank=True)
     # 简介
     user_desc = models.CharField(max_length=500, blank=True)
+    # 修改认证的字段为手机号
+    USERNAME_FIELD = 'mobile'
 
     class Meta:
         # 表名

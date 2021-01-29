@@ -3,13 +3,13 @@
 from libs.yuntongxun.CCPRestSDK import REST
 
 # 说明：主账号，登陆云通讯网站后，可在"控制台-应用"中看到开发者主账号ACCOUNT SID
-_accountSid = '8aaf070862470f20162578ab6fe06b0'
+_accountSid = '8aaf0708773733a801774cbfdfdd0afe'
 
 # 说明：主账号Token，登陆云通讯网站后，可在控制台-应用中看到开发者主账号AUTH TOKEN
-_accountToken = '3b9e8ef5ec848b483fe3f0eb0862f0c'
+_accountToken = '3aca392263734a15bcfaaf271d7c38e1'
 
 # 请使用管理控制台首页的APPID或自己创建应用的APPID
-_appId = '8aaf0708624670f0162578ab75206b6'
+_appId = '8aaf0708773733a801774cc40e400b0b'
 
 # 说明：请求地址，生产环境配置成app.cloopen.com
 _serverIP = 'sandboxapp.cloopen.com'
@@ -19,6 +19,7 @@ _serverPort = "8883"
 
 # 说明：REST API版本号保持不变
 _softVersion = '2013-12-26'
+
 
 # 云通讯官方提供的发送短信代码实例
 # # 发送模板短信

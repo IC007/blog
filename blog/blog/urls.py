@@ -25,4 +25,7 @@ urlpatterns = [
     # namespace: 命名空间，区分不同子应用下路由，一般和子应用即可
     path('', include(('users.urls', 'users'), namespace='users')),
 
+    path('', include(('home.urls', 'home'), namespace='home')),
+
+
 ]
