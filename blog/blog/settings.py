@@ -156,6 +156,8 @@ SESSION_CACHE_ALIAS = 'default'
 # 子应用名.模型类名
 AUTH_USER_MODEL = 'users.User'
 
+# 修改系统未登录的默认跳转链接
+LOGIN_URL = '/login/'
 
 # 日志
 LOGGING = {

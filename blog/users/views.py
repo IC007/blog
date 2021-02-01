@@ -13,6 +13,7 @@ from utils.response_code import RETCODE
 from libs.yuntongxun.sms import CCP
 import re
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from users.models import User
 from django.db import DatabaseError
 from django.shortcuts import redirect
@@ -197,18 +198,18 @@ class LoginView(View):
         remember = request.POST.get('remember')
 
         # 参数验证
-            # 验证手机号
+        # 验证手机号
         if not re.match(r'^1[3-9]\d{9}$', mobile):
             return HttpResponseBadRequest('手机号不符合规则')
             # 验证密码是否符合
         if not re.match(r'^[0-9A-Za-z]{8,20}$', password):
             return HttpResponseBadRequest('密码不符合规则')
         # 用户认证登陆
-            # 采用系统自带的认证方法认证
-            # 如果用户名密码正确，返回user
-            # 如果用户名或密码不正确，返回None
-            # 系统自带的方法默认是针对username字段进行判断
-            # 当前判断信息是手机号，所以我们需要在User模型中修改认证字段
+        # 采用系统自带的认证方法认证
+        # 如果用户名密码正确，返回user
+        # 如果用户名或密码不正确，返回None
+        # 系统自带的方法默认是针对username字段进行判断
+        # 当前判断信息是手机号，所以我们需要在User模型中修改认证字段
         user = authenticate(mobile=mobile, password=password)
         if user is None:
             return HttpResponseBadRequest('用户名或密码错误')
@@ -216,23 +217,32 @@ class LoginView(View):
         login(request, user)
         # 根据用户选择是否记住登陆状态
         # 为了首页显示我们需要设置一些cookie信息
-        response = redirect(reverse('home:index'))
+
+        # 根据 next参数进行页面跳转
+        # 获取next参数内容
+        next_page = request.GET.get('next')
+        if next_page:
+            response = redirect(next_page)
+        else:
+            response = redirect(reverse('home:index'))
+
         if remember != 'on':
             # 浏览器关闭后
             request.session.set_expiry(0)
             response.set_cookie('is_login', True)
-            response.set_cookie('username', user.username, max_age=14*24*3600)
+            response.set_cookie('username', user.username, max_age=14 * 24 * 3600)
         else:
             # 记住两周
             request.session.set_expiry(None)
-            response.set_cookie('is_login', True, max_age=14*24*3600)
-            response.set_cookie('username', user.username, max_age=14*24*3600)
+            response.set_cookie('is_login', True, max_age=14 * 24 * 3600)
+            response.set_cookie('username', user.username, max_age=14 * 24 * 3600)
         # 返回响应
         return response
 
+
 # 登出
 class LogoutView(View):
-    
+
     def get(self, request):
         # session 清除
         logout(request)
@@ -243,3 +253,26 @@ class LogoutView(View):
         return response
 
 
+# 个人中心
+# 判断是否登录, 若未登录，则会默认跳转
+# 默认跳转路由 /accounts/login/?next=/center/
+class UserCenterView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        # 获取登录用户的信息
+        user = request.user
+        # 组织获取用户的信息
+        context = {
+            'username': user.username,
+            'mobile': user.mobile,
+            'avatar': user.avatar.url if user.avatar else None,
+            'user_desc': user.user_desc
+        }
+        return render(request, 'center.html', context=context)
+
+
+# 写日志
+class WriteBlogView(View):
+
+    def get(self, request):
+        return render(request, 'write_blog.html')
