@@ -1,7 +1,7 @@
 # 进行users子应用视图路由
 from django.urls import path
-from users.views import RegisterView, ImageCodeView, SmsCodeView, LoginView, LogoutView, UserCenterView, WriteBlogView
-
+from users.views import RegisterView, ImageCodeView, SmsCodeView
+from users.views import LoginView, LogoutView, UserCenterView, WriteBlogView
 urlpatterns = [
     # path 第一个参数：路由
     # path 第二个参数：视图函数名
