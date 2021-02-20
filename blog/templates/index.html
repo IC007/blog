@@ -65,7 +65,7 @@
                     </div>
                 </li>
                 <!-- 如果用户未登录，则显示登录按钮 -->
-                <li class="nav-item" v-else>
+                <li class="nav-item v-else">
                     <a class="nav-link" href="{% url 'users:login' %}">登录</a>
                 </li>
             </ul>
@@ -91,12 +91,12 @@
                 </span>
                 <!-- 标题 -->
                 <h4>
-                    <b><a href="{% static 'detail.html' %}" style="color: black;">{{ article.title }}</a></b>
+                    <b><a href="{% url 'home:detail' %}?id={{ article.id }}" style="color: black;">{{ article.title }}</a></b>
                 </h4>
                 <!-- 摘要 -->
                 <div>
                     <p style="color: gray;">
-                        {{ article.sumary }}
+                        {{ article.summary }}
                     </p>
                 </div>
                 <!-- 注脚 -->

@@ -291,7 +291,7 @@ class WriteBlogView(LoginRequiredMixin, View):
         title = request.POST.get('title')
         category_id = request.POST.get('category')
         tags = request.POST.get('tags')
-        summary = request.POST.get('sumary')
+        summary = request.POST.get('summary')
         content = request.POST.get('content')
         user = request.user
         # 验证数据
@@ -318,5 +318,3 @@ class WriteBlogView(LoginRequiredMixin, View):
             return HttpResponseBadRequest('发布失败，请稍后再试')
         # 跳转到指定页
         return redirect(reverse('home:index'))
-
-
